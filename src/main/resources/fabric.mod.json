@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "glimmeringpotions",
+  "version": "${version}",
+  "name": "Glimmering Potions",
+  "description": "Adds a bunch of Terraria-themed potions to the game.",
+  "authors": [
+    "Draylar"
+  ],
+  "license": "MIT",
+  "icon": "assets/glimmeringpotions/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "draylar.glimmeringpotions.GlimmeringPotions"
+    ]
+  },
+  "mixins": [
+    "glimmering-potions.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.8.2+build.194",
+    "fabric": "*",
+    "minecraft": "1.15.2"
+  }
+}

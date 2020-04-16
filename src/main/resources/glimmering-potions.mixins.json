@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "draylar.glimmeringpotions.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "GiveGiftsToHeroMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
