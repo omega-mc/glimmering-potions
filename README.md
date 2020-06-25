@@ -1,6 +1,6 @@
 # Glimmering Potions
 
-![](resources/banner.png)
+![](resources/shadow_banner.png)
 
 Glimmering Potions adds in a few new unique drinks based on Terraria's potions. Each potion has a unique effect and can be found in any dungeon chest.
 
