@@ -97,7 +97,7 @@ public class GlimmeringPotions implements ModInitializer {
 
     private boolean phrasesContains(Identifier identifier) {
         for (String phrase : lootPhrases) {
-            if (identifier.toString().contains(phrase)) {
+            if (identifier.getPath().contains(phrase)) {
                 return true;
             }
         }
