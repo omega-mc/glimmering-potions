@@ -13,11 +13,15 @@
   "entrypoints": {
     "main": [
       "draylar.glimmeringpotions.GlimmeringPotions"
+    ],
+    "client": [
+      "draylar.glimmeringpotions.GlimmeringPotionsClient"
     ]
   },
   "mixins": [
     "glimmering-potions.mixins.json"
   ],
+  "accessWidener": "glimmeringpotions.accesswidener",
   "depends": {
     "fabricloader": ">=0.8.2+build.194",
     "fabric": "*",

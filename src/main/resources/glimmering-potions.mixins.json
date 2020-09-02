@@ -3,7 +3,8 @@
   "package": "draylar.glimmeringpotions.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "GiveGiftsToHeroMixin"
+    "GiveGiftsToHeroMixin",
+    "GoToWorkTaskMixin"
   ],
   "client": [
   ],

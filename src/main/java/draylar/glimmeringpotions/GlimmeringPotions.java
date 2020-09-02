@@ -1,6 +1,8 @@
 package draylar.glimmeringpotions;
 
+import draylar.glimmeringpotions.registry.Blocks;
 import draylar.glimmeringpotions.registry.Items;
+import draylar.glimmeringpotions.registry.Professions;
 import draylar.glimmeringpotions.util.BaseStatusEffect;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -53,6 +55,9 @@ public class GlimmeringPotions implements ModInitializer {
     @Override
     public void onInitialize() {
         Items.init();
+        Blocks.init();
+        Items.init();
+        Professions.init();
 
         lootTables.add(new Identifier("minecraft:chests/abandoned_mineshaft"));
         lootTables.add(new Identifier("minecraft:chests/buried_treasure"));

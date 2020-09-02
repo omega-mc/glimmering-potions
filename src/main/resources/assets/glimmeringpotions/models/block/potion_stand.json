@@ -1,0 +1,22 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"base": "glimmeringpotions:block/potion_stand",
+		"particle": "glimmeringpotions:block/potion_stand"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 5],
+			"to": [11, 2, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 8, 4]},
+			"faces": {
+				"north": {"uv": [2, 14, 8, 16], "texture": "#base"},
+				"east": {"uv": [9, 14, 15, 16], "texture": "#base"},
+				"south": {"uv": [2, 14, 8, 16], "texture": "#base"},
+				"west": {"uv": [9, 14, 15, 16], "texture": "#base"},
+				"up": {"uv": [2, 9, 8, 15], "texture": "#base"},
+				"down": {"uv": [2, 9, 8, 15], "texture": "#base", "cullface": "down"}
+			}
+		}
+	]
+}
