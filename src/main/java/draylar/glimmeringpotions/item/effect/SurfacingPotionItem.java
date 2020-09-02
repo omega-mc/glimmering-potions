@@ -5,8 +5,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -23,7 +23,7 @@ public class SurfacingPotionItem extends UsePotionItem {
     }
 
     @Override
-    public void runDrinkAction(ItemStack stack, World world, LivingEntity user, PlayerEntity playerEntity) {
+    public void runDrinkAction(ItemStack stack, World world, LivingEntity user, ServerPlayerEntity playerEntity) {
         if(playerEntity != null) {
             BlockPos up = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, playerEntity.getBlockPos());
             playerEntity.requestTeleport(up.getX() + .5, up.getY(), up.getZ() + .5);

@@ -1,7 +1,9 @@
 package draylar.glimmeringpotions.entity;
 
+import draylar.glimmeringpotions.registry.Blocks;
 import draylar.glimmeringpotions.registry.Entities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -27,10 +29,10 @@ public class PotionStandBlockEntity extends BlockEntity implements BlockEntityCl
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
+    public void fromTag(BlockState state, CompoundTag tag) {
         CompoundTag stackData = tag.getCompound("StackData");
         potionStack = ItemStack.fromTag(stackData);
-        super.fromTag(tag);
+        super.fromTag(state, tag);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class PotionStandBlockEntity extends BlockEntity implements BlockEntityCl
 
     @Override
     public void fromClientTag(CompoundTag tag) {
-        fromTag(tag);
+        fromTag(Blocks.POTION_STAND.getDefaultState(), tag);
     }
 
     @Override

@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -23,14 +24,11 @@ public class RecallPotionItem extends UsePotionItem {
     }
 
     @Override
-    public void runDrinkAction(ItemStack stack, World world, LivingEntity user, PlayerEntity playerEntity) {
-        if (user instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) user;
-            BlockPos spawn = player.getSpawnPosition();
+    public void runDrinkAction(ItemStack stack, World world, LivingEntity user, ServerPlayerEntity player) {
+        BlockPos spawn = player.getSpawnPointPosition();
 
-            if(spawn != null) {
-                user.requestTeleport(spawn.getX(), spawn.getY(), spawn.getZ());
-            }
+        if (spawn != null) {
+            user.requestTeleport(spawn.getX(), spawn.getY(), spawn.getZ());
         }
     }
 

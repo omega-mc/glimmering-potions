@@ -2,7 +2,7 @@ package draylar.glimmeringpotions.item.base;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.advancement.criterion.Criterions;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -11,6 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
@@ -23,16 +24,17 @@ public abstract class UsePotionItem extends Item {
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity) user : null;
+
         if (playerEntity == null || !playerEntity.abilities.creativeMode) {
             stack.decrement(1);
         }
 
         if (playerEntity instanceof ServerPlayerEntity) {
-            Criterions.CONSUME_ITEM.trigger((ServerPlayerEntity) playerEntity, stack);
+            Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) playerEntity, stack);
         }
 
         if (!world.isClient) {
-            runDrinkAction(stack, world, user, playerEntity);
+            runDrinkAction(stack, world, user, (ServerPlayerEntity) playerEntity);
         }
 
         if (playerEntity != null) {
@@ -52,13 +54,13 @@ public abstract class UsePotionItem extends Item {
         return stack;
     }
 
-    public abstract void runDrinkAction(ItemStack stack, World world, LivingEntity user, PlayerEntity playerEntity);
+    public abstract void runDrinkAction(ItemStack stack, World world, LivingEntity user, ServerPlayerEntity playerEntity);
 
     public abstract Formatting getFormatting();
 
     @Override
     public Text getName(ItemStack stack) {
-        return super.getName(stack).formatted(getFormatting());
+        return ((TranslatableText) super.getName(stack)).formatted(getFormatting());
     }
 
     @Override
@@ -79,7 +81,7 @@ public abstract class UsePotionItem extends Item {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public boolean hasEnchantmentGlint(ItemStack stack) {
+    public boolean hasGlint(ItemStack stack) {
         return true;
     }
 }

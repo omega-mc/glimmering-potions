@@ -15,7 +15,7 @@ import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.ConstantLootTableRange;
-import net.minecraft.loot.condition.LootConditions;
+import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
@@ -32,7 +32,7 @@ public class GlimmeringPotions implements ModInitializer {
                     StatusEffectType.BENEFICIAL,
                     8171462
             ).addAttributeModifier(
-                    EntityAttributes.ARMOR,
+                    EntityAttributes.GENERIC_ARMOR,
                     "91AEAA56-376B-4498-935B-2F7F68070635",
                     6,
                     EntityAttributeModifier.Operation.ADDITION
@@ -76,20 +76,21 @@ public class GlimmeringPotions implements ModInitializer {
 
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, identifier, supplier, lootTableSetter) -> {
             if(lootTables.contains(identifier) || phrasesContains(identifier)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .withRolls(ConstantLootTableRange.create(1))
-                        .withCondition(RandomChanceLootCondition.builder(0.5f))
-                        .withEntry(ItemEntry.builder(Items.BULWARK_POTION))
-                        .withEntry(ItemEntry.builder(Items.FALSE_HEROISM_POTION))
-                        .withEntry(ItemEntry.builder(Items.GREATER_RESTORATION_POTION))
-                        .withEntry(ItemEntry.builder(Items.RECALL_POTION))
-                        .withEntry(ItemEntry.builder(Items.RESTORATION_POTION))
-                        .withEntry(ItemEntry.builder(Items.RECALL_POTION))
-                        .withEntry(ItemEntry.builder(Items.SURFACING_POTION))
-                        .withEntry(ItemEntry.builder(Items.TELEPORTATION_POTION))
-                        .withEntry(ItemEntry.builder(Items.ULTIMATE_RESTORATION_POTION));
+                LootPool pool = FabricLootPoolBuilder.builder()
+                        .rolls(ConstantLootTableRange.create(1))
+                        .withCondition(RandomChanceLootCondition.builder(0.5f).build())
+                        .withEntry(ItemEntry.builder(Items.BULWARK_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.FALSE_HEROISM_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.GREATER_RESTORATION_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.RECALL_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.RESTORATION_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.RECALL_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.SURFACING_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.TELEPORTATION_POTION).build())
+                        .withEntry(ItemEntry.builder(Items.ULTIMATE_RESTORATION_POTION).build())
+                        .build();
 
-                supplier.withPool(poolBuilder);
+                supplier.withPool(pool);
             }
         });
     }
