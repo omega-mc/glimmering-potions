@@ -11,7 +11,7 @@ import net.minecraft.util.registry.Registry;
 
 public class Blocks {
 
-    public static final PotionStandBlock POTION_STAND = register("potion_stand", new PotionStandBlock(FabricBlockSettings.of(Material.METAL).nonOpaque().build()), new Item.Settings().group(GlimmeringPotions.GROUP));
+    public static final PotionStandBlock POTION_STAND = register("potion_stand", new PotionStandBlock(FabricBlockSettings.of(Material.METAL).hardness(2.0f).nonOpaque().build()), new Item.Settings().group(GlimmeringPotions.GROUP));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, GlimmeringPotions.id(name), block);
