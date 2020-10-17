@@ -1,0 +1,27 @@
+{
+  "itemGroup.glimmeringpotions.group": "微光药水 §5(Glimmering Potions)",
+
+  "entity.minecraft.villager.alchemist": "炼金师",
+
+  "effect.glimmeringpotions.bulwark": "铁肤",
+  "effect.glimmeringpotions.false_heroism": "虚伪的英雄",
+
+  "glimmeringpotions.tooltip.false_heroism_1": "基本上来说, 有钱这件事儿",
+  "glimmeringpotions.tooltip.false_heroism_2": "和成为英雄是一样的...对吗?",
+  "glimmeringpotions.tooltip.surfacing": "将你直接传送到地表。",
+  "glimmeringpotions.tooltip.bulwark_1": "粒子也可以成为你的护甲!",
+  "glimmeringpotions.tooltip.bulwark_2": "至少...看起来是这样的。",
+  "glimmeringpotions.tooltip.teleporting": "你大约的确会想着带些用于降落的枕头。",
+  "glimmeringpotions.tooltip.recall": "我们回家咯!",
+
+  "block.glimmeringpotions.potion_stand": "药水台",
+
+  "item.glimmeringpotions.bulwark_potion": "铁肤药水",
+  "item.glimmeringpotions.recall_potion": "回忆药水",
+  "item.glimmeringpotions.restoration_potion": "恢复药水",
+  "item.glimmeringpotions.greater_restoration_potion": "强效恢复药水",
+  "item.glimmeringpotions.ultimate_restoration_potion": "究极恢复药水",
+  "item.glimmeringpotions.teleportation_potion": "传送药水",
+  "item.glimmeringpotions.surfacing_potion": "表层药水",
+  "item.glimmeringpotions.false_heroism_potion": "虚伪的英雄药水"
+}
