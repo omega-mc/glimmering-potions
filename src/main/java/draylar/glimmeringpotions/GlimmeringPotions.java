@@ -1,6 +1,7 @@
 package draylar.glimmeringpotions;
 
 import draylar.glimmeringpotions.registry.Blocks;
+import draylar.glimmeringpotions.registry.Entities;
 import draylar.glimmeringpotions.registry.Items;
 import draylar.glimmeringpotions.registry.Professions;
 import draylar.glimmeringpotions.util.BaseStatusEffect;
@@ -57,6 +58,7 @@ public class GlimmeringPotions implements ModInitializer {
         Items.init();
         Blocks.init();
         Items.init();
+        Entities.init();
         Professions.init();
 
         lootTables.add(new Identifier("minecraft:chests/abandoned_mineshaft"));
