@@ -8,7 +8,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.poi.PointOfInterestType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -27,29 +26,34 @@ public class GoToWorkTaskMixin {
      * @author Draylar
      */
     @Overwrite
-    public void run(ServerWorld serverWorld, VillagerEntity villagerEntity, long l) {
-        GlobalPos pos = villagerEntity.getBrain().getOptionalMemory(MemoryModuleType.JOB_SITE).get();
-        MinecraftServer server = serverWorld.getServer();
-        Optional<PointOfInterestType> foundType = server.getWorld(pos.getDimension()).getPointOfInterestStorage().getType(pos.getPos());
+    public void run(ServerWorld world, VillagerEntity villagerEntity, long l) {
+        Optional<GlobalPos> optionalMemory = villagerEntity.getBrain().getOptionalMemory(MemoryModuleType.POTENTIAL_JOB_SITE);
 
-        // if the POI type of the position is valid
-        if(foundType.isPresent()) {
-            PointOfInterestType type = foundType.get();
+        if(!optionalMemory.isPresent()) {
+            return;
+        }
 
-            // find all valid professions that match the position's POI type
+        GlobalPos globalPos = optionalMemory.get();
+        villagerEntity.getBrain().forget(MemoryModuleType.POTENTIAL_JOB_SITE);
+        villagerEntity.getBrain().remember(MemoryModuleType.JOB_SITE, globalPos);
+
+        if (villagerEntity.getVillagerData().getProfession() == VillagerProfession.NONE) {
+            MinecraftServer minecraftServer = world.getServer();
             List<VillagerProfession> validProfessions = new ArrayList<>();
-            for (VillagerProfession profession : Registry.VILLAGER_PROFESSION) {
-                if (profession.getWorkStation().equals(type)) {
-                    validProfessions.add(profession);
-                }
-            }
 
-            // select a random profession and assign it to the villager
-            if(!validProfessions.isEmpty()) {
-                VillagerProfession selectedProfession = validProfessions.get(villagerEntity.getRandom().nextInt(validProfessions.size()));
-                villagerEntity.setVillagerData(villagerEntity.getVillagerData().withProfession(selectedProfession));
-                villagerEntity.reinitializeBrain(serverWorld);
-            }
+            // Filter down to valid professions for this instance
+            Optional.ofNullable(minecraftServer.getWorld(globalPos.getDimension())).flatMap((worldX) -> {
+                return worldX.getPointOfInterestStorage().getType(globalPos.getPos());
+            }).flatMap((pointOfInterestType) -> {
+                return Registry.VILLAGER_PROFESSION.stream().filter((villagerProfession) -> {
+                    return villagerProfession.getWorkStation() == pointOfInterestType;
+                }).findAny();
+            }).ifPresent(validProfessions::add);
+
+            // Assign random profession
+            VillagerProfession selected = validProfessions.get(world.random.nextInt(validProfessions.size()));
+            villagerEntity.setVillagerData(villagerEntity.getVillagerData().withProfession(selected));
+            villagerEntity.reinitializeBrain(world);
         }
     }
 }
