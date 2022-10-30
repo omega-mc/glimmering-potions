@@ -1,11 +1,11 @@
 package draylar.glimmeringpotions.util;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class BaseStatusEffect extends StatusEffect {
 
-    public BaseStatusEffect(StatusEffectType type, int color) {
-        super(type, color);
+    public BaseStatusEffect(StatusEffectCategory statusEffectCategory, int color) {
+        super(statusEffectCategory, color);
     }
 }

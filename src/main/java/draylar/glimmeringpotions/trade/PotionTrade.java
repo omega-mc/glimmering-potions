@@ -6,14 +6,14 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtil;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class PotionTrade implements TradeOffers.Factory {
@@ -77,7 +77,7 @@ public class PotionTrade implements TradeOffers.Factory {
         }
 
         ItemStack result = PotionUtil.setCustomPotionEffects(new ItemStack(Items.POTION), selectedEffects);
-        result.setCustomName(new LiteralText("Magical Potion"));
+        result.setCustomName(Text.literal("Magical Potion"));
 
         return new TradeOffer(
                 firstPurchaseItem,

@@ -1,24 +1,23 @@
 package draylar.glimmeringpotions;
 
-import draylar.glimmeringpotions.registry.Blocks;
-import draylar.glimmeringpotions.registry.Entities;
-import draylar.glimmeringpotions.registry.Items;
-import draylar.glimmeringpotions.registry.Professions;
+import draylar.glimmeringpotions.registry.GPBlocks;
+import draylar.glimmeringpotions.registry.GPEntities;
+import draylar.glimmeringpotions.registry.GPItems;
+import draylar.glimmeringpotions.registry.GPProfessions;
 import draylar.glimmeringpotions.util.BaseStatusEffect;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -30,7 +29,7 @@ public class GlimmeringPotions implements ModInitializer {
     public static final StatusEffect BULWARK = register(
             "bulwark",
             new BaseStatusEffect(
-                    StatusEffectType.BENEFICIAL,
+                    StatusEffectCategory.BENEFICIAL,
                     8171462
             ).addAttributeModifier(
                     EntityAttributes.GENERIC_ARMOR,
@@ -43,7 +42,7 @@ public class GlimmeringPotions implements ModInitializer {
     public static final StatusEffect FALSE_HEROISM = register(
             "false_heroism",
             new BaseStatusEffect(
-                    StatusEffectType.BENEFICIAL,
+                    StatusEffectCategory.BENEFICIAL,
                     0x42f587
             )
     );
@@ -51,15 +50,14 @@ public class GlimmeringPotions implements ModInitializer {
     public static final Set<Identifier> lootTables = new HashSet<>();
     public static final Set<String> lootPhrases = new HashSet<>();
 
-    public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("group"), () -> new ItemStack(Items.TELEPORTATION_POTION));
+    public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("group"), () -> new ItemStack(GPItems.TELEPORTATION_POTION));
 
     @Override
     public void onInitialize() {
-        Items.init();
-        Blocks.init();
-        Items.init();
-        Entities.init();
-        Professions.init();
+        GPItems.init();
+        GPBlocks.init();
+        GPEntities.init();
+        GPProfessions.init();
 
         lootTables.add(new Identifier("minecraft:chests/abandoned_mineshaft"));
         lootTables.add(new Identifier("minecraft:chests/buried_treasure"));
@@ -76,30 +74,30 @@ public class GlimmeringPotions implements ModInitializer {
         lootPhrases.add("dungeon");
         lootPhrases.add("treasure");
 
-        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, identifier, supplier, lootTableSetter) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, identifier, supplier, source) -> {
             if(lootTables.contains(identifier) || phrasesContains(identifier)) {
-                LootPool pool = FabricLootPoolBuilder.builder()
-                        .rolls(ConstantLootTableRange.create(1))
-                        .withCondition(RandomChanceLootCondition.builder(0.5f).build())
-                        .withEntry(ItemEntry.builder(Items.BULWARK_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.FALSE_HEROISM_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.GREATER_RESTORATION_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.RECALL_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.RESTORATION_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.RECALL_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.SURFACING_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.TELEPORTATION_POTION).build())
-                        .withEntry(ItemEntry.builder(Items.ULTIMATE_RESTORATION_POTION).build())
+                LootPool pool = LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.5f).build())
+                        .with(ItemEntry.builder(GPItems.BULWARK_POTION).build())
+                        .with(ItemEntry.builder(GPItems.FALSE_HEROISM_POTION).build())
+                        .with(ItemEntry.builder(GPItems.GREATER_RESTORATION_POTION).build())
+                        .with(ItemEntry.builder(GPItems.RECALL_POTION).build())
+                        .with(ItemEntry.builder(GPItems.RESTORATION_POTION).build())
+                        .with(ItemEntry.builder(GPItems.RECALL_POTION).build())
+                        .with(ItemEntry.builder(GPItems.SURFACING_POTION).build())
+                        .with(ItemEntry.builder(GPItems.TELEPORTATION_POTION).build())
+                        .with(ItemEntry.builder(GPItems.ULTIMATE_RESTORATION_POTION).build())
                         .build();
 
-                supplier.withPool(pool);
+                supplier.pool(pool);
             }
         });
     }
 
     private boolean phrasesContains(Identifier identifier) {
         for (String phrase : lootPhrases) {
-            if (identifier.getPath().contains(phrase)) {
+            if(identifier.getPath().contains(phrase)) {
                 return true;
             }
         }

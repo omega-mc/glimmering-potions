@@ -10,7 +10,7 @@ import draylar.glimmeringpotions.item.effect.SurfacingPotionItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 
-public class Items {
+public class GPItems {
 
     public static final RecallPotionItem RECALL_POTION = register("recall_potion", new RecallPotionItem(new Item.Settings().maxCount(16).group(GlimmeringPotions.GROUP)));
     public static final RestorationPotion RESTORATION_POTION = register("restoration_potion", new RestorationPotion(new Item.Settings().maxCount(16).group(GlimmeringPotions.GROUP), 2, 20 * 15, 1));

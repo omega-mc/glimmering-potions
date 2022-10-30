@@ -7,14 +7,12 @@ import net.minecraft.block.BedBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -61,6 +59,6 @@ public class RecallPotionItem extends UsePotionItem {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        tooltip.add(new TranslatableText("glimmeringpotions.tooltip.recall").formatted(Formatting.GRAY));
+        tooltip.add(Text.translatable("glimmeringpotions.tooltip.recall").formatted(Formatting.GRAY));
     }
 }

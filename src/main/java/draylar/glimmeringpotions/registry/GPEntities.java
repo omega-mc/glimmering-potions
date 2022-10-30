@@ -2,15 +2,16 @@ package draylar.glimmeringpotions.registry;
 
 import draylar.glimmeringpotions.GlimmeringPotions;
 import draylar.glimmeringpotions.entity.PotionStandBlockEntity;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 
-public class Entities {
+public class GPEntities {
 
     public static final BlockEntityType<PotionStandBlockEntity> POTION_STAND = register(
             "potion_stand",
-            BlockEntityType.Builder.create(PotionStandBlockEntity::new, Blocks.POTION_STAND).build(null)
+            FabricBlockEntityTypeBuilder.create(PotionStandBlockEntity::new, GPBlocks.POTION_STAND).build(null)
     );
 
     private static <BE extends BlockEntity> BlockEntityType<BE> register(String name, BlockEntityType<BE> blockEntityType) {
@@ -21,7 +22,7 @@ public class Entities {
         // NO-OP
     }
 
-    private Entities() {
+    private GPEntities() {
         // NO-OP
     }
 }

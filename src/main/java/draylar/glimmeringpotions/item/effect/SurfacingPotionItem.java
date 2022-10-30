@@ -8,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
@@ -40,6 +39,6 @@ public class SurfacingPotionItem extends UsePotionItem {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        tooltip.add(new TranslatableText("glimmeringpotions.tooltip.surfacing").formatted(Formatting.GRAY));
+        tooltip.add(Text.translatable("glimmeringpotions.tooltip.surfacing").formatted(Formatting.GRAY));
     }
 }
