@@ -5,7 +5,7 @@ import net.minecraft.entity.ai.brain.task.GoToWorkTask;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.dynamic.GlobalPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.VillagerProfession;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,7 +46,7 @@ public class GoToWorkTaskMixin {
                 return worldX.getPointOfInterestStorage().getType(globalPos.getPos());
             }).flatMap((pointOfInterestType) -> {
                 return Registry.VILLAGER_PROFESSION.stream().filter((villagerProfession) -> {
-                    return villagerProfession.getWorkStation() == pointOfInterestType;
+                    return villagerProfession.heldWorkstation().test(pointOfInterestType);
                 }).findAny();
             }).ifPresent(validProfessions::add);
 

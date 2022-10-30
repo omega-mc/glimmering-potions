@@ -9,13 +9,13 @@ import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuil
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.poi.PointOfInterestTypes;
 
-public class Professions {
+public class GPProfessions {
 
 //    public static final PointOfInterestType ALCHEMIST_POI = PointOfInterestHelper
 //            .register(
@@ -32,7 +32,7 @@ public class Professions {
                     .create()
                     .id(GlimmeringPotions.id("alchemist"))
                     .harvestableItems(Items.NETHER_WART)
-                    .workstation(PointOfInterestType.CLERIC)
+                    .workstation(PointOfInterestTypes.CLERIC)
                     .workSound(SoundEvents.BLOCK_BREWING_STAND_BREW)
                     .build()
     );
@@ -79,7 +79,7 @@ public class Professions {
         );
     }
 
-    private Professions() {
+    private GPProfessions() {
 
     }
 

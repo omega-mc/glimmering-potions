@@ -10,8 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
@@ -25,7 +25,7 @@ public abstract class UsePotionItem extends Item {
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity) user : null;
 
-        if (playerEntity == null || !playerEntity.abilities.creativeMode) {
+        if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
             stack.decrement(1);
         }
 
@@ -41,13 +41,13 @@ public abstract class UsePotionItem extends Item {
             playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
 
-        if (playerEntity == null || !playerEntity.abilities.creativeMode) {
+        if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
             if (stack.isEmpty()) {
                 return new ItemStack(Items.GLASS_BOTTLE);
             }
 
             if (playerEntity != null) {
-                playerEntity.inventory.insertStack(new ItemStack(Items.GLASS_BOTTLE));
+                playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
             }
         }
 
@@ -60,7 +60,7 @@ public abstract class UsePotionItem extends Item {
 
     @Override
     public Text getName(ItemStack stack) {
-        return ((TranslatableText) super.getName(stack)).formatted(getFormatting());
+        return ((MutableText) super.getName(stack)).formatted(getFormatting());
     }
 
     @Override

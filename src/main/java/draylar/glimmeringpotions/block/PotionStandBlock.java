@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class PotionStandBlock extends Block implements BlockEntityProvider {
 
@@ -28,9 +29,10 @@ public class PotionStandBlock extends Block implements BlockEntityProvider {
         super(settings);
     }
 
+    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView view) {
-        return new PotionStandBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new PotionStandBlockEntity(pos, state);
     }
 
     @Override
